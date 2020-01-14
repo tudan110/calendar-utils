@@ -16,7 +16,7 @@ import java.util.Date;
  */
 public class CalendarUtils {
 
-    // 计算阴历日期参照1900年到2049年
+    // 计算阴历日期参照 1900 年到 2049 年
     private final static int[] LUNAR_INFO = {
             0x04bd8, 0x04ae0, 0x0a570, 0x054d5, 0x0d260, 0x0d950, 0x16554, 0x056a0, 0x09ad0, 0x055d2,
             0x04ae0, 0x0a5b6, 0x0a4d0, 0x0d250, 0x1d255, 0x0b540, 0x0d6a0, 0x0ada2, 0x095b0, 0x14977,
@@ -342,6 +342,19 @@ public class CalendarUtils {
         lunarDay = offset;
 
         return "阴历：" + lunarYear + "年" + (leapMonthFlag & (lunarMonth == leapMonth) ? "闰" : "") + lunarMonth + "月" + lunarDay + "日";
+    }
+
+    /**
+     * 获取系统年份
+     *
+     * @return
+     * @author wangtan
+     * @date 2020-01-14 20:12:59
+     * @since 1.0
+     */
+    public static String getSysYear() {
+        Calendar date = Calendar.getInstance();
+        return String.valueOf(date.get(Calendar.YEAR));
     }
 
 }
