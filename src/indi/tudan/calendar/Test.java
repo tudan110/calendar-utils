@@ -8,7 +8,7 @@ public class Test {
 
         String yearStr = CalendarUtils.getSysYear();
 
-        String eve = Integer.parseInt(CalendarUtils.lunarToSolar(yearStr + "0101", false)) - 1 + "";
+        String dayEve = CalendarUtils.getSpecifiedDayBefore(CalendarUtils.lunarToSolar(yearStr + "0101", false));
         String day1st = CalendarUtils.lunarToSolar(yearStr + "0101", false);
         String day2nd = CalendarUtils.lunarToSolar(yearStr + "0102", false);
         String day3rd = CalendarUtils.lunarToSolar(yearStr + "0103", false);
@@ -16,7 +16,7 @@ public class Test {
         String day5th = CalendarUtils.lunarToSolar(yearStr + "0105", false);
         String day6th = CalendarUtils.lunarToSolar(yearStr + "0106", false);
 
-        System.out.println(eve);
+        System.out.println(dayEve);
         System.out.println(day1st);
         System.out.println(day2nd);
         System.out.println(day3rd);

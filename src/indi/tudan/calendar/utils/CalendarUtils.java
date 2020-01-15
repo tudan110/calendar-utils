@@ -357,4 +357,52 @@ public class CalendarUtils {
         return String.valueOf(date.get(Calendar.YEAR));
     }
 
+    /**
+     * 获得指定日期的前一天
+     *
+     * @param yyyyMMdd 日期字符串
+     * @return 前一天日期字符串
+     * @author wangtan
+     * @date 2020-01-15 09:34:32
+     * @since 1.0
+     */
+    public static String getSpecifiedDayBefore(String yyyyMMdd) {
+        Calendar c = Calendar.getInstance();
+        Date date = null;
+        try {
+            date = new SimpleDateFormat("yyyyMMdd").parse(yyyyMMdd);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        c.setTime(date);
+        int day = c.get(Calendar.DATE);
+        c.set(Calendar.DATE, day - 1);
+
+        return new SimpleDateFormat("yyyyMMdd").format(c.getTime());
+    }
+
+    /**
+     * 获得指定日期的后一天
+     *
+     * @param yyyyMMdd 日期字符串
+     * @return 后一天日期字符串
+     * @author wangtan
+     * @date 2020-01-15 09:35:59
+     * @since 1.0
+     */
+    public static String getSpecifiedDayAfter(String yyyyMMdd) {
+        Calendar c = Calendar.getInstance();
+        Date date = null;
+        try {
+            date = new SimpleDateFormat("yyyyMMdd").parse(yyyyMMdd);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        c.setTime(date);
+        int day = c.get(Calendar.DATE);
+        c.set(Calendar.DATE, day + 1);
+
+        return new SimpleDateFormat("yyyyMMdd").format(c.getTime());
+    }
+
 }
