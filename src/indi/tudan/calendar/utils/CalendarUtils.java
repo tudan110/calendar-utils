@@ -16,7 +16,9 @@ import java.util.Date;
  */
 public class CalendarUtils {
 
-    // 计算阴历日期参照 1900 年到 2049 年
+    /**
+     * 计算阴历日期参照 1900 年到 2049 年
+     */
     private final static int[] LUNAR_INFO = {
             0x04bd8, 0x04ae0, 0x0a570, 0x054d5, 0x0d260, 0x0d950, 0x16554, 0x056a0, 0x09ad0, 0x055d2,
             0x04ae0, 0x0a5b6, 0x0a4d0, 0x0d250, 0x1d255, 0x0b540, 0x0d6a0, 0x0ada2, 0x095b0, 0x14977,
@@ -35,16 +37,24 @@ public class CalendarUtils {
             0x0b5a0, 0x056d0, 0x055b2, 0x049b0, 0x0a577, 0x0a4b0, 0x0aa50, 0x1b255, 0x06d20, 0x0ada0
     };
 
-    // 允许输入的最小年份
+    /**
+     * 允许输入的最小年份
+     */
     private final static int MIN_YEAR = 1900;
 
-    // 允许输入的最大年份
+    /**
+     * 允许输入的最大年份
+     */
     private final static int MAX_YEAR = 2049;
 
-    // 阳历日期计算起点
+    /**
+     * 阳历日期计算起点
+     */
     private final static String START_DATE = "19000130";
 
-    // 当年是否有闰月
+    /**
+     * 当年是否有闰月
+     */
     private static boolean isLeapYear;
 
     /**
@@ -52,10 +62,9 @@ public class CalendarUtils {
      *
      * @param year 阴历年
      * @return (int)月份
-     * @author liu 2015-1-5
      */
     private static int getLeapMonth(int year) {
-        return (int) (LUNAR_INFO[year - 1900] & 0xf);
+        return LUNAR_INFO[year - 1900] & 0xf;
     }
 
     /**
@@ -63,7 +72,6 @@ public class CalendarUtils {
      *
      * @param year 阴历年
      * @return (int)天数
-     * @author liu 2015-1-5
      */
     private static int getLeapMonthDays(int year) {
         if (getLeapMonth(year) != 0) {
@@ -83,8 +91,7 @@ public class CalendarUtils {
      * @param lunarYeay 阴历年
      * @param month     阴历月
      * @return (int)该月天数
-     * @throws Exception
-     * @author liu 2015-1-5
+     * @throws Exception Exception
      */
     private static int getMonthDays(int lunarYeay, int month) throws Exception {
         if ((month > 31) || (month < 0)) {
@@ -104,7 +111,6 @@ public class CalendarUtils {
      *
      * @param year 阴历年
      * @return (int)总天数
-     * @author liu 2015-1-5
      */
     private static int getYearDays(int year) {
         int sum = 29 * 12;
@@ -122,7 +128,6 @@ public class CalendarUtils {
      * @param startDate 开始时间
      * @param endDate   截至时间
      * @return (int)天数
-     * @author liu 2015-1-5
      */
     @Deprecated
     private static int daysBetween2(Date startDate, Date endDate) {
@@ -137,7 +142,6 @@ public class CalendarUtils {
      * @param startDate 开始时间
      * @param endDate   截至时间
      * @return (int)天数
-     * @author liu 2017-3-2
      */
     private static int daysBetween(Date startDate, Date endDate) {
         int days = 0;
@@ -180,7 +184,7 @@ public class CalendarUtils {
      * @param lunarMonth    阴历月
      * @param lunarDay      阴历日
      * @param leapMonthFlag 闰月标志
-     * @throws Exception
+     * @throws Exception Exception
      */
     private static void checkLunarDate(int lunarYear, int lunarMonth, int lunarDay, boolean leapMonthFlag) throws Exception {
         if ((lunarYear < MIN_YEAR) || (lunarYear > MAX_YEAR)) {
@@ -194,7 +198,7 @@ public class CalendarUtils {
         }
 
         int leap = getLeapMonth(lunarYear);// 计算该年应该闰哪个月
-        if ((leapMonthFlag == true) && (lunarMonth != leap)) {
+        if (leapMonthFlag && (lunarMonth != leap)) {
             throw (new Exception("非法闰月！"));
         }
     }
@@ -206,7 +210,6 @@ public class CalendarUtils {
      * @param leapMonthFlag 是否为闰月
      * @return 阳历日期, 格式：YYYYMMDD
      * @throws Exception
-     * @author liu 2015-1-5
      */
     public static String lunarToSolar(String lunarDate, boolean leapMonthFlag) throws Exception {
         int lunarYear = Integer.parseInt(lunarDate.substring(0, 4));
@@ -281,8 +284,7 @@ public class CalendarUtils {
      *
      * @param solarDate 阳历日期,格式YYYYMMDD
      * @return 阴历日期
-     * @throws Exception
-     * @author liu 2015-1-5
+     * @throws Exception Exception
      */
     public static String solarToLunar(String solarDate) throws Exception {
         int i;
@@ -345,9 +347,24 @@ public class CalendarUtils {
     }
 
     /**
+     * 获取去年年份
+     *
+     * @return 去年年份
+     * @author wangtan
+     * @date 2020-01-15 10:24:22
+     * @since 1.0
+     */
+    public static String getSysLastYear() {
+        Calendar date = Calendar.getInstance();
+        date.setTime(new Date());
+        date.add(Calendar.YEAR, -1);
+        return String.valueOf(date.get(Calendar.YEAR));
+    }
+
+    /**
      * 获取系统年份
      *
-     * @return
+     * @return 系统年份
      * @author wangtan
      * @date 2020-01-14 20:12:59
      * @since 1.0
@@ -403,6 +420,202 @@ public class CalendarUtils {
         c.set(Calendar.DATE, day + 1);
 
         return new SimpleDateFormat("yyyyMMdd").format(c.getTime());
+    }
+
+    /**
+     * 获取除夕阳历日期
+     *
+     * @param yearStr 年份字符串
+     * @return 除夕阳历日期字符串
+     * @throws Exception Exception
+     * @author wangtan
+     * @date 2020-01-15 09:54:39
+     * @since 1.0
+     */
+    public static String getNewYearEve(String yearStr) throws Exception {
+        return getSpecifiedDayBefore(lunarToSolar(yearStr + "0101", false));
+    }
+
+    /**
+     * 获取新年第一天阳历日期
+     *
+     * @param yearStr 年份字符串
+     * @return 新年第一天阳历日期字符串
+     * @throws Exception Exception
+     * @author wangtan
+     * @date 2020-01-15 09:56:19
+     * @since 1.0
+     */
+    public static String getNewYearDay1st(String yearStr) throws Exception {
+        return lunarToSolar(yearStr + "0101", false);
+    }
+
+    /**
+     * 获取新年第二天阳历日期
+     *
+     * @param yearStr 年份字符串
+     * @return 新年第二天阳历日期字符串
+     * @throws Exception Exception
+     * @author wangtan
+     * @date 2020-01-15 09:56:43
+     * @since 1.0
+     */
+    public static String getNewYearDay2nd(String yearStr) throws Exception {
+        return lunarToSolar(yearStr + "0102", false);
+    }
+
+    /**
+     * 获取新年第三天阳历日期
+     *
+     * @param yearStr 年份字符串
+     * @return 新年第三天阳历日期字符串
+     * @throws Exception Exception
+     * @author wangtan
+     * @date 2020-01-15 09:58:22
+     * @since 1.0
+     */
+    public static String getNewYearDay3rd(String yearStr) throws Exception {
+        return lunarToSolar(yearStr + "0103", false);
+    }
+
+    /**
+     * 获取新年第四天阳历日期
+     *
+     * @param yearStr 年份字符串
+     * @return 新年第四天阳历日期字符串
+     * @throws Exception Exception
+     * @author wangtan
+     * @date 2020-01-15 09:59:02
+     * @since 1.0
+     */
+    public static String getNewYearDay4th(String yearStr) throws Exception {
+        return lunarToSolar(yearStr + "0104", false);
+    }
+
+    /**
+     * 获取新年第五天阳历日期
+     *
+     * @param yearStr 年份字符串
+     * @return 新年第五天阳历日期字符串
+     * @throws Exception Exception
+     * @author wangtan
+     * @date 2020-01-15 09:59:29
+     * @since 1.0
+     */
+    public static String getNewYearDay5th(String yearStr) throws Exception {
+        return lunarToSolar(yearStr + "0105", false);
+    }
+
+    /**
+     * 获取新年第六天阳历日期
+     *
+     * @param yearStr 年份字符串
+     * @return 新年第六天阳历日期字符串
+     * @throws Exception Exception
+     * @author wangtan
+     * @date 2020-01-15 09:59:48
+     * @since 1.0
+     */
+    public static String getNewYearDay6th(String yearStr) throws Exception {
+        return lunarToSolar(yearStr + "0106", false);
+    }
+
+    /**
+     * 获取新年第七天阳历日期
+     *
+     * @param yearStr 年份字符串
+     * @return 新年第七天阳历日期字符串
+     * @throws Exception Exception
+     * @author wangtan
+     * @date 2020-01-15 10:00:08
+     * @since 1.0
+     */
+    public static String getNewYearDay7th(String yearStr) throws Exception {
+        return lunarToSolar(yearStr + "0107", false);
+    }
+
+    /**
+     * 获取阳历去年最后一天日期字符串
+     *
+     * @return 阳历去年最后一天日期字符串
+     * @author wangtan
+     * @date 2020-01-15 10:38:20
+     * @since 1.0
+     */
+    public static String getSolarNewYearEve() {
+        return getSysLastYear() + "1231";
+    }
+
+    /**
+     * 获取阳历第一天日期字符串
+     *
+     * @return 阳历第一天日期字符串
+     * @author wangtan
+     * @date 2020-01-15 10:39:57
+     * @since 1.0
+     */
+    public static String getSolarNewYear1st() {
+        return getSysYear() + "0101";
+    }
+
+    /**
+     * 获取阳历第二天日期字符串
+     *
+     * @return 阳历第二天日期字符串
+     * @author wangtan
+     * @date 2020-01-15 10:40:14
+     * @since 1.0
+     */
+    public static String getSolarNewYear2nd() {
+        return getSysYear() + "0102";
+    }
+
+    /**
+     * 获取阳历第三天日期字符串
+     *
+     * @return 阳历第三天日期字符串
+     * @author wangtan
+     * @date 2020-01-15 10:40:40
+     * @since 1.0
+     */
+    public static String getSolarNewYear3rd() {
+        return getSysYear() + "0103";
+    }
+
+    /**
+     * 获取阳历第四天日期字符串
+     *
+     * @return 阳历第四天日期字符串
+     * @author wangtan
+     * @date 2020-01-15 10:40:40
+     * @since 1.0
+     */
+    public static String getSolarNewYear4th() {
+        return getSysYear() + "0104";
+    }
+
+    /**
+     * 获取阳历第五天日期字符串
+     *
+     * @return 阳历第五天日期字符串
+     * @author wangtan
+     * @date 2020-01-15 10:41:19
+     * @since 1.0
+     */
+    public static String getSolarNewYear5th() {
+        return getSysYear() + "0105";
+    }
+
+    /**
+     * 获取阳历第六天日期字符串
+     *
+     * @return 阳历第六天日期字符串
+     * @author wangtan
+     * @date 2020-01-15 10:41:36
+     * @since 1.0
+     */
+    public static String getSolarNewYear6th() {
+        return getSysYear() + "0106";
     }
 
 }

@@ -6,15 +6,27 @@ public class Test {
 
     public static void main(String[] args) throws Exception {
 
+        String lastYearStr = CalendarUtils.getSysLastYear();
+        System.out.println(lastYearStr);
+
         String yearStr = CalendarUtils.getSysYear();
 
-        String dayEve = CalendarUtils.getSpecifiedDayBefore(CalendarUtils.lunarToSolar(yearStr + "0101", false));
-        String day1st = CalendarUtils.lunarToSolar(yearStr + "0101", false);
-        String day2nd = CalendarUtils.lunarToSolar(yearStr + "0102", false);
-        String day3rd = CalendarUtils.lunarToSolar(yearStr + "0103", false);
-        String day4th = CalendarUtils.lunarToSolar(yearStr + "0104", false);
-        String day5th = CalendarUtils.lunarToSolar(yearStr + "0105", false);
-        String day6th = CalendarUtils.lunarToSolar(yearStr + "0106", false);
+        String dayEve = CalendarUtils.getNewYearEve(yearStr);
+        String day1st = CalendarUtils.getNewYearDay1st(yearStr);
+        String day2nd = CalendarUtils.getNewYearDay2nd(yearStr);
+        String day3rd = CalendarUtils.getNewYearDay3rd(yearStr);
+        String day4th = CalendarUtils.getNewYearDay4th(yearStr);
+        String day5th = CalendarUtils.getNewYearDay5th(yearStr);
+        String day6th = CalendarUtils.getNewYearDay6th(yearStr);
+        String day7th = CalendarUtils.getNewYearDay7th(yearStr);
+
+        long startTime = Long.parseLong(dayEve + "0000");
+        long endTime = Long.parseLong(day7th + "0700");
+
+        System.out.println(startTime);
+        System.out.println(endTime);
+
+        System.out.println("\n==============\n");
 
         System.out.println(dayEve);
         System.out.println(day1st);
@@ -23,6 +35,16 @@ public class Test {
         System.out.println(day4th);
         System.out.println(day5th);
         System.out.println(day6th);
+
+        System.out.println("\n==============\n");
+
+        System.out.println(CalendarUtils.getSolarNewYearEve());
+        System.out.println(CalendarUtils.getSolarNewYear1st());
+        System.out.println(CalendarUtils.getSolarNewYear2nd());
+        System.out.println(CalendarUtils.getSolarNewYear3rd());
+        System.out.println(CalendarUtils.getSolarNewYear4th());
+        System.out.println(CalendarUtils.getSolarNewYear5th());
+        System.out.println(CalendarUtils.getSolarNewYear6th());
 
     }
 }
