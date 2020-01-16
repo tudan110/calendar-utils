@@ -535,6 +535,110 @@ public class CalendarUtils {
     }
 
     /**
+     * 获取除夕阳历日期
+     *
+     * @return 除夕阳历日期字符串
+     * @throws Exception Exception
+     * @author wangtan
+     * @date 2020-01-16 16:26:12
+     * @since 1.0
+     */
+    public static String getNewYearEve() throws Exception {
+        return getSpecifiedDayBefore(lunarToSolar(getSysYear() + "0101", false));
+    }
+
+    /**
+     * 获取新年第一天阳历日期
+     *
+     * @return 新年第一天阳历日期字符串
+     * @throws Exception Exception
+     * @author wangtan
+     * @date 2020-01-16 16:26:46
+     * @since 1.0
+     */
+    public static String getNewYearDay1st() throws Exception {
+        return lunarToSolar(getSysYear() + "0101", false);
+    }
+
+    /**
+     * 获取新年第二天阳历日期
+     *
+     * @return 新年第二天阳历日期字符串
+     * @throws Exception Exception
+     * @author wangtan
+     * @date 2020-01-16 16:26:51
+     * @since 1.0
+     */
+    public static String getNewYearDay2nd() throws Exception {
+        return lunarToSolar(getSysYear() + "0102", false);
+    }
+
+    /**
+     * 获取新年第三天阳历日期
+     *
+     * @return 新年第三天阳历日期字符串
+     * @throws Exception Exception
+     * @author wangtan
+     * @date 2020-01-16 16:27:03
+     * @since 1.0
+     */
+    public static String getNewYearDay3rd() throws Exception {
+        return lunarToSolar(getSysYear() + "0103", false);
+    }
+
+    /**
+     * 获取新年第四天阳历日期
+     *
+     * @return 新年第四天阳历日期字符串
+     * @throws Exception Exception
+     * @author wangtan
+     * @date 2020-01-16 16:27:15
+     * @since 1.0
+     */
+    public static String getNewYearDay4th() throws Exception {
+        return lunarToSolar(getSysYear() + "0104", false);
+    }
+
+    /**
+     * 获取新年第五天阳历日期
+     *
+     * @return 新年第五天阳历日期字符串
+     * @throws Exception Exception
+     * @author wangtan
+     * @date 2020-01-16 16:34:15
+     * @since 1.0
+     */
+    public static String getNewYearDay5th() throws Exception {
+        return lunarToSolar(getSysYear() + "0105", false);
+    }
+
+    /**
+     * 获取新年第六天阳历日期
+     *
+     * @return 新年第六天阳历日期字符串
+     * @throws Exception Exception
+     * @author wangtan
+     * @date 2020-01-16 16:34:39
+     * @since 1.0
+     */
+    public static String getNewYearDay6th() throws Exception {
+        return lunarToSolar(getSysYear() + "0106", false);
+    }
+
+    /**
+     * 获取新年第七天阳历日期
+     *
+     * @return 新年第七天阳历日期字符串
+     * @throws Exception Exception
+     * @author wangtan
+     * @date 2020-01-16 16:34:51
+     * @since 1.0
+     */
+    public static String getNewYearDay7th() throws Exception {
+        return lunarToSolar(getSysYear() + "0107", false);
+    }
+
+    /**
      * 获取阳历去年最后一天日期字符串
      *
      * @return 阳历去年最后一天日期字符串
